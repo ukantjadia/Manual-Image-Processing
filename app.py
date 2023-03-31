@@ -57,10 +57,12 @@ if (raw):
 
 if (raw):
     if (st.button("Manipulate the Image")):
-        value = st.number_input("Pick a number",5,255)
+        # value = st.number_input("Pick a number",5,255)
+
         st.write("Manipulation with Brightness of Image")
         col1,col2 = st.columns(2)
         with col1:
+            value = st.slider("pick a number",2,255)
             st.write("Brightned Image")
             img_bri = np_img.copy()
             for row in range(0,shape[0]):
@@ -73,6 +75,7 @@ if (raw):
 
         with col2:
             st.write("Darken Image")
+            value = st.slider("pick a number",2,255)
             img_dar = np_img.copy()
             for row in range(0,shape[0]):
                 for col in range(0,shape[1]):
