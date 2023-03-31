@@ -17,39 +17,30 @@ if (raw):
     size = np_img.size 
     shape = np_img.shape
 
-def bright(np_img,value):
-    img_bri = np_img.copy()
-    for row in range(0,shape[0]):
-        for col in range(0,shape[1]):
-            img_bri[row][col] += value  
-            if img_bri[row][col] > 255:
-                img_bri[row][col] = 255
+# def bright(np_img,value):
+#     img_bri = np_img.copy()
+#     for row in range(0,shape[0]):
+#         for col in range(0,shape[1]):
+#             img_bri[row][col] += value  
+#             if img_bri[row][col] > 255:
+#                 img_bri[row][col] = 255
 
-    img2 = Image.fromarray(img_bri)
-    return img2
+#     img2 = Image.fromarray(img_bri)
+#     return img2
 
-def dark(np_img,value):
-    img_dar = np_img.copy()
-    for row in range(0,shape[0]):
-        for col in range(0,shape[1]):
-            img_dar[row][col] -= value  
-            if img_dar[row][col] < 0:
-                img_dar[row][col] = 0 
+# def dark(np_img,value):
+#     img_dar = np_img.copy()
+#     for row in range(0,shape[0]):
+#         for col in range(0,shape[1]):
+#             img_dar[row][col] -= value  
+#             if img_dar[row][col] < 0:
+#                 img_dar[row][col] = 0 
     
-    img1 = Image.fromarray(img_dar)
-    return img1
+#     img1 = Image.fromarray(img_dar)
+#     return img1
 
 if (raw):
     button1 = st.button("let's go...")
-    # with Image.open(raw) as img:
-    #     img.load()
-
-    # time.sleep(2)
-    # gray_img = img.convert('L')
-    # np_img = np.array(gray_img)
-    # size = np_img.size 
-    # shape = np_img.shape
-
     col1,col2 = st.columns(2)
     col1.metric("Size of image ",size)
     col2.metric("Shape of image ",'x'.join(map(str,shape)))
@@ -71,13 +62,22 @@ if (raw):
         col1,col2 = st.columns(2)
         with col1:
             st.write("Brightned Image")
-            img_bri =bright(np_img,value) 
-            st.image(img_bri)
-            # st.write("Image Brightn by ")
+            img_bri = np_img.copy()
+            for row in range(0,shape[0]):
+                for col in range(0,shape[1]):
+                    img_bri[row][col] += value  
+                    if img_bri[row][col] > 255:
+                        img_bri[row][col] = 255
+            img2 = Image.fromarray(img_bri)
+            st.image(img2)
 
         with col2:
             st.write("Darken Image")
-            # st.write(value)
-            img_dar =dark(np_img,value) 
-            st.image(img_dar)
-            # st.write("Image darken by ")
+            img_dar = np_img.copy()
+            for row in range(0,shape[0]):
+                for col in range(0,shape[1]):
+                    img_dar[row][col] -= value  
+                    if img_dar[row][col] < 0:
+                        img_dar[row][col] = 0 
+            img1 = Image.fromarray(img_dar)
+            st.image(img1)
