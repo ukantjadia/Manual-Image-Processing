@@ -14,8 +14,8 @@ with col1:
     file = st.file_uploader("",type=['png','jpg','jpeg'])
 
 
-with col2:
-    st.image()
+# with col2:
+#     st.image()
 
 st.sidebar.markdown('<p class="font"> Low Level Image Processing App</p>',unsafe_allow_html=True)
 
