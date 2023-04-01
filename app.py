@@ -1,6 +1,6 @@
 import streamlit as st
 import numpy as np 
-from PIL import Image
+from PIL import Image, ImageFilter
 
 
 col1, col2 = st.columns([0.8,0.2])
@@ -52,7 +52,7 @@ if file is not None:
                     if img2[row][col] > 255:
                         img2[row][col]  = 255
             img1 = Image.fromarray(img2)
-            st.image(img1)
+            st.image(img1,widht=300)
             
         elif filter == "Dark":
             gray_img = img.convert('L')
@@ -66,6 +66,27 @@ if file is not None:
                     if img2[row][col] < 0:
                         img2[row][col]  = 0  
             img1 = Image.fromarray(img2)
-            st.image(img1)
+            st.image(img1,width=300)
 
+        elif filter == "Edge":
+            gray_img = img.convert('L')
+            edges = gray_img.filter(ImageFilter.FIND_EDGES)
+            st.image(edges,width=300)
+
+        elif filter == "Contrast":
+            gray_img = img.convert('L')
+            np_gray = np.array(gray_img)
+            shape = np_gray.shape
+            img2 = np_gray.copy()
+            slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
+            for row in range(len(np_gray)):
+                for col in range(len(np_gray)):
+                    img2[row][col] *= slider
+                    if img2[row][col] > 255 :
+                        img2[row][col]  = 255
+                    if img2[row][col] < 0 :
+                        img2[row][col]  = 0 
+
+            img1 = Image.fromarray(img2)
+            st.image(img1,widht=300)
 
