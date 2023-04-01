@@ -52,7 +52,7 @@ if file is not None:
                     if img2[row][col] > 255:
                         img2[row][col]  = 255
             img1 = Image.fromarray(img2)
-            st.image(img1,widht=300)
+            st.image(img1,width=300)
             
         elif filter == "Dark":
             gray_img = img.convert('L')
@@ -88,5 +88,5 @@ if file is not None:
                         img2[row][col]  = 0 
 
             img1 = Image.fromarray(img2)
-            st.image(img1,widht=300)
+            st.image(img1,width=300)
 
