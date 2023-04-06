@@ -85,13 +85,25 @@ if file is not None:
             img1 = Image.fromarray(img2)
             st.image(img1,width=300)
             st.markdown('<p margin-top:5px><br> </p>',unsafe_allow_html=True)
+            gray_img_cv = np.array(img.convert('RGB'))
+            cv_gray = cv2.cvtColor(gray_img_cv,cv2.COLOR_RGB2GRAY)
+            slider = st.sidebar.slider('Adjust the intensity(OpenCV)',1,255,127,step=1)
+            (thresh, blackAndWhiteImage) = cv2.threshold(cv_gray,slider,255,cv2.THRESH_BINARY)
+            st.image(blackAndWhiteImage,width=300)
 
         elif filter == "Edge":
             gray_img = img.convert('L')
             edges = gray_img.filter(ImageFilter.FIND_EDGES)
             st.image(edges,width=300)
             st.markdown('<p margin-top:5px><br> </p>',unsafe_allow_html=True)
-
+            gray_img_cv = np.array(img.convert('RGB'))
+            cv_gray = cv2.cvtColor(gray_img_cv,cv2.COLOR_RGB2GRAY)
+            inv_gray = 255 - gray_img_cv
+            slider = st.sidebar.slider('Adjust the intensity(OpenCV)',25,255,125,step=2)
+            blur_image = cv2.GaussianBlur(inv_gray,(slider,slider),0,0)
+            sketch = cv2.divide(gray_img_cv,255-blur_image,sacle=256)
+            st.image(sketch,width=300)
+            
         elif filter == "Contrast":
             gray_img = img.convert('L')
             np_gray = np.array(gray_img)
