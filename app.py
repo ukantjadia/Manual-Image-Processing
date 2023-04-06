@@ -35,58 +35,72 @@ if file is not None:
 
     with col2:
         st.markdown('<p style="text-align:center;"> After</p>',unsafe_allow_html=True)
-        filter = st.sidebar.radio('Play with you Image:',['Original','Gray Image','Edge','Bright','Dark','Contrast'])
-        if filter == 'Gray Image':
-            gray_img = img.convert('L')
-            np_gray = np.array(gray_img)
-            st.image(gray_img,width=300)
-        elif filter == "Bright":
-            gray_img = img.convert('L')
-            np_gray = np.array(gray_img)
-            shape = np_gray.shape
-            img2 = np_gray.copy()
-            slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
-            for row in range(len(np_gray)):
-                for col in range(len(np_gray)):
-                    img2[row][col] += slider
-                    if img2[row][col] > 255:
-                        img2[row][col]  = 255
-            img1 = Image.fromarray(img2)
-            st.image(img1,width=300)
-            
-        elif filter == "Dark":
-            gray_img = img.convert('L')
-            np_gray = np.array(gray_img)
-            shape = np_gray.shape
-            img2 = np_gray.copy()
-            slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
-            for row in range(len(np_gray)):
-                for col in range(len(np_gray)):
-                    img2[row][col] -= slider
-                    if img2[row][col] < 0:
-                        img2[row][col]  = 0  
-            img1 = Image.fromarray(img2)
-            st.image(img1,width=300)
+        selector = st.sidebar.multiselect('Choose Method',['OpenCV','Pillow'])
+        if selector == 'Pillow':
+            filter = st.sidebar.radio('Play with you Image:',['Original','Gray Image','Edge','Bright','Dark','Contrast'])
+            if filter == 'Gray Image':
+                gray_img = img.convert('L')
+                np_gray = np.array(gray_img)
+                st.image(gray_img,width=300)
+            elif filter == "Bright":
+                gray_img = img.convert('L')
+                np_gray = np.array(gray_img)
+                shape = np_gray.shape
+                img2 = np_gray.copy()
+                slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
+                for row in range(len(np_gray)):
+                    for col in range(len(np_gray)):
+                        img2[row][col] += slider
+                        if img2[row][col] > 255:
+                            img2[row][col]  = 255
+                img1 = Image.fromarray(img2)
+                st.image(img1,width=300)
+                
+            elif filter == "Dark":
+                gray_img = img.convert('L')
+                np_gray = np.array(gray_img)
+                shape = np_gray.shape
+                img2 = np_gray.copy()
+                slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
+                for row in range(len(np_gray)):
+                    for col in range(len(np_gray)):
+                        img2[row][col] -= slider
+                        if img2[row][col] < 0:
+                            img2[row][col]  = 0  
+                img1 = Image.fromarray(img2)
+                st.image(img1,width=300)
 
-        elif filter == "Edge":
-            gray_img = img.convert('L')
-            edges = gray_img.filter(ImageFilter.FIND_EDGES)
-            st.image(edges,width=300)
+            elif filter == "Edge":
+                gray_img = img.convert('L')
+                edges = gray_img.filter(ImageFilter.FIND_EDGES)
+                st.image(edges,width=300)
 
-        elif filter == "Contrast":
-            gray_img = img.convert('L')
-            np_gray = np.array(gray_img)
-            shape = np_gray.shape
-            img2 = np_gray.copy()
-            slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
-            for row in range(len(np_gray)):
-                for col in range(len(np_gray)):
-                    img2[row][col] *= slider
-                    if img2[row][col] > 255 :
-                        img2[row][col]  = 255
-                    if img2[row][col] < 0 :
-                        img2[row][col]  = 0 
+            elif filter == "Contrast":
+                gray_img = img.convert('L')
+                np_gray = np.array(gray_img)
+                shape = np_gray.shape
+                img2 = np_gray.copy()
+                slider = st.sidebar.slider("Adjust intensity",2,255,step=2)
+                for row in range(len(np_gray)):
+                    for col in range(len(np_gray)):
+                        img2[row][col] *= slider
+                        if img2[row][col] > 255 :
+                            img2[row][col]  = 255
+                        if img2[row][col] < 0 :
+                            img2[row][col]  = 0 
 
-            img1 = Image.fromarray(img2)
-            st.image(img1,width=300)
+                img1 = Image.fromarray(img2)
+                st.image(img1,width=300)
 
+        elif selector == 'OpenCV':
+            filter = st.sidebar.radio('Play with you Image:',['Original','Gray Image','Edge','Bright','Dark','Contrast'])
+            if filter == 'Gray Image':
+                pass
+            elif filter == "Bright":
+                pass 
+            elif filter == "Dark":
+                pass
+            elif filter == "Edge":
+                pass
+            elif filter == "Contrast":
+                pass
