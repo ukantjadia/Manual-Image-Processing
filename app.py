@@ -1,8 +1,7 @@
+import cv2
 import streamlit as st
 import numpy as np 
 from PIL import Image, ImageFilter, ImageEnhance
-import cv2
-
 import streamlit as st
 
 footer="""<style>
