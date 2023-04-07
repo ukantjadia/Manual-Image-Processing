@@ -91,7 +91,6 @@ if file is not None:
             cv_gray = cv2.cvtColor(gray_img_cv,cv2.COLOR_RGB2GRAY)
             st.image(cv_gray,width=300)
 
-        
         elif filter == "Bright":
             gray_img_cv = np.array(img.convert('RGB'))
             cv_gray = cv2.cvtColor(gray_img_cv,cv2.COLOR_RGB2GRAY)
